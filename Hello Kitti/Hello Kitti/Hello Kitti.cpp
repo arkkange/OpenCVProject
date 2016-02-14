@@ -20,36 +20,67 @@ using namespace cv;
 
 int main(int argc, char** argv)
 {
-	//! [load]
-	string repository("../data/ImageGroup1/"); // by default
-	string imageNumber = stringPhotoNumber(1);
-	string imageName = repository + imageNumber + ".png";
+	string entry;
+	int repositoryValue;
+	bool validEntry = false;
+	string repository; // by default
+	int nbImages;
+	
+	//check valid entry and set photo folder used
+	do {
+		std::cout << "please enter the image repository number you want to use..." << endl;
+		getline(cin, entry);
+		repositoryValue = stoi(entry);
+		switch (repositoryValue)
+		{
+		case 1:
+			repository = "../data/ImageGroup1/";
+			nbImages = 107;
+			validEntry = true;
+			std::cout << "valid entry" << endl;
+			break;
+		default:
+			std::cout << "error ! try again, ";
+			break;
+		}
 
-	//if (argc > 1)
-	//{
-	//	imageName = argv[1];
-	//}
+	} while (validEntry == false);
 
-	//! [mat]
-	Mat image;
+	int ActualImageValue = 1;
+	namedWindow("DisplaySource", WINDOW_AUTOSIZE); // Create a window for display.
+	std::cout << "starting images sample " << repositoryValue << " with " << nbImages << " images" << endl;
 
-	//! [imread]
-	image = imread(imageName.c_str(), IMREAD_COLOR); // Read the file
+	do {
 
-	if (image.empty())                      // Check for invalid input
-	{
-		cout << "Could not open or find the image" << std::endl;
-		return -1;
-	}
+		//! [load]
+		string imageNumber = stringPhotoNumber(ActualImageValue);
+		string imageName = repository + imageNumber + ".png";
 
-	//! [window]
-	namedWindow("Display window", WINDOW_AUTOSIZE); // Create a window for display.
+		//! [mat]
+		Mat image;
 
-	//! [imshow]
-	imshow("Display window", image);                // Show our image inside it.
+		//! [imread]
+		image = imread(imageName.c_str(), IMREAD_COLOR);	// Read the file
+		if (image.empty())									// Check for invalid input
+		{
+			std::cout << "Could not open or find the image" << std::endl;
+			return -1;
+		}
+
+		//! [imshow]
+		imshow("DisplaySource", image);                // Show our image inside it.
+
+		Sleep(1000);
+
+
+		ActualImageValue++;
+	} while (ActualImageValue < nbImages);
+
+	std::cout << "images sample ending" << endl;
 
 
 	//! [wait]
+	
 	waitKey(0); // Wait for a keystroke in the window
 	return 0;
 }
