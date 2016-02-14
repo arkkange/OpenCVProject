@@ -11,22 +11,12 @@
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
-//! [includes]
-
-//! [Pragma]
-
 #pragma comment(lib, "opencv_core310.lib")
 #pragma comment(lib, "opencv_imgcodecs310.lib")
 #pragma comment(lib, "opencv_highgui310.lib")
 
-//! [Pragma]
-
-//! [namespace]
-
 using namespace cv;
 //using namespace std;
-
-//! [namespace]
 
 int main(int argc, char** argv)
 {
